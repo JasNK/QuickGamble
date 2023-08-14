@@ -22,4 +22,8 @@ public class Player {
     public void setDealtCards(Card card) {
         dealtCards.add(card);
     }
+
+    public void clearDealtCards() {
+        dealtCards.clear();
+    }
 }

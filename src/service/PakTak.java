@@ -22,40 +22,43 @@ public class PakTak {
     public static Card getCardByCode(List<Card> cards, String code) {
         for (Card card : cards) {
             if (card.getCode().equals(code)) {
-                return card; // Found the card with the matching code
+                return card;
             }
         }
-        return null; // Card with the given code not found
+        return null;
     }
 
-    public void startGame(List<Card> cards, String pickerName, Card chosenCard) {
-        boolean cardChosen = false;
-        Player picker = null;
-        for (Player player : players) {
-//            if (player.getName().equals(pickerName)) {
-//                picker = player;
-//                break;
-//            }
-        }
+    public boolean startGame(List<Card> cards, String pickerName, Card chosenCard, CLIUI cliui) {
+        int currentPlayerIndex = players.indexOf(players.stream().filter(player -> player.getName().equals(pickerName)).findFirst().orElse(null));;
+        boolean continuePlaying = true;
 
         for (Card card : cards) {
-            for (Player player : players) {
-                player.setDealtCards(card);
-//                if (picker == player) {
-//                    continue;
-//                }
 
-                if (!cardChosen) {
-                    if (chosenCard.getCode().equals(card.getCode())) {
-                        System.out.println(player.getName() + " wins!");
-                        leaderboard.updateScore(player.getName());
-                        cardChosen = true; // Mark that the card has been chosen
-                    }
-                }
+            Player currentPlayer = players.get(currentPlayerIndex);
+            currentPlayer.setDealtCards(card);
+            if (chosenCard.getCode().equals(card.getCode())) {
+                System.out.println(currentPlayer.getName() + " wins!");
+                leaderboard.updateScore(currentPlayer.getName());
+                break;
             }
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
         printDealtCards();
         leaderboard.displayLeaderboard();
+        int choice = cliui.displayOptions();
+        switch (choice) {
+            case 1 -> {
+                for (Player player : players) {
+                    player.clearDealtCards();
+                }
+            }
+            case 2 -> {
+                System.out.println("Thank you for playing!");
+                continuePlaying = false;
+            }
+            default -> System.out.println("Invalid choice. Please enter a valid option.");
+        }
+        return continuePlaying;
     }
 
     public void printDealtCards() {
@@ -67,5 +70,4 @@ public class PakTak {
             System.out.println();
         }
     }
-
 }

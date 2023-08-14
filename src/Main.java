@@ -13,29 +13,34 @@ import static service.PakTak.getCardByCode;
 public class Main {
     public static void main(String[] args) {
         DeckOfCardsApiClient apiClient = DeckOfCardsApiClient.getInstance();
+        CLIUI cliui = new CLIUI();
 
-        try {
-            Gson gson = new Gson();
-            String drawResponseJson = apiClient.drawCards("new", 52);
-            ShuffledDeck shuffledDeck = gson.fromJson(drawResponseJson, ShuffledDeck.class);
+        // Initialize players and other necessary data outside of the loop
+        int numberOfPlayers = cliui.getNumberOfPlayers();
+        List<String> playerNames = cliui.getPlayerNames(numberOfPlayers);
+        PakTak pakTak = new PakTak(playerNames);
 
-            List<Card> cardss = shuffledDeck.getCards();
+        boolean continuePlaying = true;
 
-            CLIUI cliui = new CLIUI();
-            int numberOfPlayers = cliui.getNumberOfPlayers();
-            List<String> playerNames = cliui.getPlayerNames(numberOfPlayers);
-            String pickerName = cliui.choosePlayerToPickCard(playerNames);
-            String chosenCardCode = cliui.chooseCardCode();
+        while (continuePlaying) {
+            try {
+                Gson gson = new Gson();
+                String drawResponseJson = apiClient.drawCards("new", 52);
+                ShuffledDeck shuffledDeck = gson.fromJson(drawResponseJson, ShuffledDeck.class);
+                List<Card> totalCards = shuffledDeck.getCards();
 
-            Card chosenCard = getCardByCode(cardss, chosenCardCode);
-            if (chosenCard != null) {
-                PakTak pakTak = new PakTak(playerNames);
-                pakTak.startGame(cardss, pickerName, chosenCard);
-            } else {
-                System.out.println("Card with code " + chosenCardCode + " not found.");
+                String pickerName = cliui.choosePlayerToPickCard(playerNames);
+                String chosenCardCode = cliui.chooseCardCode();
+
+                Card chosenCard = getCardByCode(totalCards, chosenCardCode);
+                if (chosenCard != null) {
+                    continuePlaying = pakTak.startGame(totalCards, pickerName, chosenCard, cliui);
+                } else {
+                    System.out.println("Card with code " + chosenCardCode + " not found.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
