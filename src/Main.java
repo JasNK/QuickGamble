@@ -1,17 +1,51 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import api.DeckOfCardsApiClient;
+import com.google.gson.Gson;
+import model.Card;
+import model.ShuffledDeck;
+import service.CLIUI;
+import service.PakTak;
+
+import static service.PakTak.getCardByCode;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        DeckOfCardsApiClient apiClient = DeckOfCardsApiClient.getInstance();
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        try {
+            Gson gson = new Gson();
+            String drawResponseJson = apiClient.drawCards("new", 52);
+            ShuffledDeck shuffledDeck = gson.fromJson(drawResponseJson, ShuffledDeck.class);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+            List<Card> cardss = shuffledDeck.getCards();
+
+            CLIUI cliui = new CLIUI();
+            int numberOfPlayers = cliui.getNumberOfPlayers();
+            List<String> playerNames = cliui.getPlayerNames(numberOfPlayers);
+            String pickerName = cliui.choosePlayerToPickCard(playerNames);
+            String chosenCardCode = cliui.chooseCardCode();
+
+            Card chosenCard = getCardByCode(cardss, chosenCardCode);
+            if (chosenCard != null) {
+                PakTak pakTak = new PakTak(playerNames);
+                pakTak.startGame(cardss, pickerName, chosenCard);
+            } else {
+                System.out.println("Card with code " + chosenCardCode + " not found.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+//    private static Card getCardByCode(ArrayList<Card> cards, String code) {
+//        for (Card card : cards) {
+//            if (card.getCode().equals(code)) {
+//                return card; // Found the card with the matching code
+//            }
+//        }
+//        return null; // Card with the given code not found
+//    }
+
 }
