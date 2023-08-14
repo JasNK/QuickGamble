@@ -3,7 +3,7 @@ package service;
 import java.util.HashMap;
 
 public class Leaderboard {
-    private HashMap<String, Integer> scores;
+    private final HashMap<String, Integer> scores;
 
     public Leaderboard() {
         this.scores = new HashMap<>();

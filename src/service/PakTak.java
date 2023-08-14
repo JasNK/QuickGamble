@@ -6,9 +6,8 @@ import model.Card;
 import model.Player;
 
 public class PakTak {
-    private List<Player> players;
-    private Leaderboard leaderboard;
-    private CLIUI cliui;
+    private final List<Player> players;
+    private final Leaderboard leaderboard;
 
     public PakTak(List<String> playerNames) {
         this.players = new ArrayList<>();
@@ -16,7 +15,6 @@ public class PakTak {
             players.add(new Player(name));
         }
         this.leaderboard = new Leaderboard();
-        this.cliui = new CLIUI();
     }
 
     public static Card getCardByCode(List<Card> cards, String code) {
@@ -29,7 +27,7 @@ public class PakTak {
     }
 
     public boolean startGame(List<Card> cards, String pickerName, Card chosenCard, CLIUI cliui) {
-        int currentPlayerIndex = players.indexOf(players.stream().filter(player -> player.getName().equals(pickerName)).findFirst().orElse(null));;
+        int currentPlayerIndex = players.indexOf(players.stream().filter(player -> player.getName().equals(pickerName)).findFirst().orElse(null));
         boolean continuePlaying = true;
 
         for (Card card : cards) {

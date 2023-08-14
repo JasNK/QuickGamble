@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CLIUI {
-    private Scanner scanner;
-    private Leaderboard leaderboard;
+    private final Scanner scanner;
 
     public CLIUI() {
         this.scanner = new Scanner(System.in);
-        this.leaderboard = new Leaderboard();
     }
 
     public int getNumberOfPlayers() {
@@ -72,15 +70,6 @@ public class CLIUI {
     }
 
     public int displayOptions() {
-        System.out.println("Options:");
-        System.out.println("1. Continue playing");
-        System.out.println("2. End Game");
-        System.out.print("Enter your choice: ");
-        return Integer.parseInt(scanner.nextLine());
-    }
-
-    public int printLeaderboard(){
-        leaderboard.displayLeaderboard();
         System.out.println("Options:");
         System.out.println("1. Continue playing");
         System.out.println("2. End Game");

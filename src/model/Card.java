@@ -3,7 +3,7 @@ package model;
 public class Card {
     private String code;
     private String image;
-    private Images images;
+    private final Images images;
     private String value;
     private String suit;
 
