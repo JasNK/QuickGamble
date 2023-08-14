@@ -32,18 +32,18 @@ public class PakTak {
         boolean cardChosen = false;
         Player picker = null;
         for (Player player : players) {
-            if (player.getName().equals(pickerName)) {
-                picker = player;
-                break;
-            }
+//            if (player.getName().equals(pickerName)) {
+//                picker = player;
+//                break;
+//            }
         }
 
         for (Card card : cards) {
             for (Player player : players) {
                 player.setDealtCards(card);
-                if (picker == player) {
-                    continue;
-                }
+//                if (picker == player) {
+//                    continue;
+//                }
 
                 if (!cardChosen) {
                     if (chosenCard.getCode().equals(card.getCode())) {
