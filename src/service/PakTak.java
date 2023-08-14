@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Card;
 import model.Player;
-import model.Leaderboard;
 
 public class PakTak {
     private List<Player> players;
@@ -30,7 +29,7 @@ public class PakTak {
     }
 
     public void startGame(List<Card> cards, String pickerName, Card chosenCard) {
-        // Logic to find the player who picked the card
+        boolean cardChosen = false;
         Player picker = null;
         for (Player player : players) {
             if (player.getName().equals(pickerName)) {
@@ -41,18 +40,32 @@ public class PakTak {
 
         for (Card card : cards) {
             for (Player player : players) {
-//                System.out.println(player.getName() + ", choose a card: ");
-                // Logic to get player's input for chosen card
-//                Card chosenCard = chosenCardCode; // Retrieve the chosen card from user input
-                player.chosenCard(chosenCard);
+                player.setDealtCards(card);
+                if (picker == player) {
+                    continue;
+                }
 
-                if (chosenCard.getCode().equals(card.getCode())) {
-                    System.out.println(player.getName() + " wins!");
-                    leaderboard.updateScore(player.getName());
+                if (!cardChosen) {
+                    if (chosenCard.getCode().equals(card.getCode())) {
+                        System.out.println(player.getName() + " wins!");
+                        leaderboard.updateScore(player.getName());
+                        cardChosen = true; // Mark that the card has been chosen
+                    }
                 }
             }
         }
-
+        printDealtCards();
         leaderboard.displayLeaderboard();
     }
+
+    public void printDealtCards() {
+        for (Player player : players) {
+            System.out.println(player.getName() + "'s dealt cards:");
+            for (Card card : player.getDealtCards()) {
+                System.out.println(card.getCode() + " (" + card.getValue() + " of " + card.getSuit() + ")");
+            }
+            System.out.println();
+        }
+    }
+
 }

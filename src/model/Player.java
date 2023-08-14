@@ -15,11 +15,11 @@ public class Player {
         return name;
     }
 
-    public ArrayList<Card> getCardArray() {
+    public ArrayList<Card> getDealtCards() {
         return dealtCards;
     }
 
-    public void chosenCard(Card card) {
+    public void setDealtCards(Card card) {
         dealtCards.add(card);
     }
 }

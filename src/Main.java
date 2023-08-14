@@ -38,14 +38,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-
-//    private static Card getCardByCode(ArrayList<Card> cards, String code) {
-//        for (Card card : cards) {
-//            if (card.getCode().equals(code)) {
-//                return card; // Found the card with the matching code
-//            }
-//        }
-//        return null; // Card with the given code not found
-//    }
-
 }

@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class CLIUI {
     private Scanner scanner;
+    private Leaderboard leaderboard;
 
     public CLIUI() {
         this.scanner = new Scanner(System.in);
+        this.leaderboard = new Leaderboard();
     }
 
     public int getNumberOfPlayers() {
@@ -41,5 +43,8 @@ public class CLIUI {
         return scanner.nextLine();
     }
 
-    // Other input methods can be added here
+    public void endGame(){
+        leaderboard.displayLeaderboard();
+    }
+
 }
