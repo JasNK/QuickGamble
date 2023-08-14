@@ -66,8 +66,15 @@ public class CLIUI {
         System.out.println("QD for Queen of Diamonds");
         System.out.println("KS for King of Spades");
         System.out.print("Your choice: ");
-        return scanner.nextLine();
+        String input = scanner.nextLine().toUpperCase();
+        while (input.length() != 2 || !input.matches("[A-Za-z0-9]+")) {
+            System.out.println("Invalid input. Please enter exactly 2 characters containing only letters or numbers.");
+            System.out.print("Your choice: ");
+            input = scanner.nextLine().toUpperCase();
+        }
+        return input;
     }
+
 
     public int displayOptions() {
         System.out.println("Options:");

@@ -14,11 +14,9 @@ public class Main {
         DeckOfCards apiClient = DeckOfCards.getInstance();
         CLIUI cliui = new CLIUI();
 
-        // Initialize players and other necessary data outside of the loop
         int numberOfPlayers = cliui.getNumberOfPlayers();
         List<String> playerNames = cliui.getPlayerNames(numberOfPlayers);
         PakTak pakTak = new PakTak(playerNames);
-
         boolean continuePlaying = true;
 
         while (continuePlaying) {
@@ -29,14 +27,18 @@ public class Main {
                 List<Card> totalCards = shuffledDeck.getCards();
 
                 String pickerName = cliui.choosePlayerToPickCard(playerNames);
-                String chosenCardCode = cliui.chooseCardCode();
-
-                Card chosenCard = getCardByCode(totalCards, chosenCardCode);
-                if (chosenCard != null) {
-                    continuePlaying = pakTak.startGame(totalCards, pickerName, chosenCard, cliui);
-                } else {
-                    System.out.println("Card with code " + chosenCardCode + " not found.");
+                String chosenCardCode;
+                Card chosenCard;
+                while (true) {
+                    chosenCardCode = cliui.chooseCardCode();
+                    chosenCard = getCardByCode(totalCards, chosenCardCode);
+                    if (chosenCard != null) {
+                        break;
+                    } else {
+                        System.out.println("Card with code " + chosenCardCode + " not found. Please try again.");
+                    }
                 }
+                continuePlaying = pakTak.startGame(totalCards, pickerName, chosenCard, cliui);
             } catch (IOException e) {
                 e.printStackTrace();
             }
