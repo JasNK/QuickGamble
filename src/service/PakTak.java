@@ -26,6 +26,20 @@ public class PakTak {
         return null;
     }
 
+    public void printDealtCards() {
+        for (Player player : players) {
+            System.out.println(player.getName() + "'s dealt cards:");
+            for (Card card : player.getDealtCards()) {
+                System.out.println(card.getCode() + " (" + card.getValue() + " of " + card.getSuit() + ")");
+            }
+            System.out.println();
+        }
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public boolean startGame(List<Card> cards, String pickerName, Card chosenCard, CLIUI cliui) {
         int currentPlayerIndex = players.indexOf(players.stream().filter(player -> player.getName().equals(pickerName)).findFirst().orElse(null));
         boolean continuePlaying = true;
@@ -57,15 +71,5 @@ public class PakTak {
             default -> System.out.println("Invalid choice. Please enter a valid option.");
         }
         return continuePlaying;
-    }
-
-    public void printDealtCards() {
-        for (Player player : players) {
-            System.out.println(player.getName() + "'s dealt cards:");
-            for (Card card : player.getDealtCards()) {
-                System.out.println(card.getCode() + " (" + card.getValue() + " of " + card.getSuit() + ")");
-            }
-            System.out.println();
-        }
     }
 }

@@ -1,6 +1,9 @@
 package service;
 
+import model.Player;
+
 import java.util.HashMap;
+import java.util.List;
 
 public class Leaderboard {
     private final HashMap<String, Integer> scores;
@@ -18,5 +21,9 @@ public class Leaderboard {
         for (HashMap.Entry<String, Integer> entry : scores.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue() + " wins");
         }
+    }
+
+    public HashMap<String, Integer> getScores() {
+        return scores;
     }
 }

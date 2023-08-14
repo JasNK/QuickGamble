@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.List;
-import api.DeckOfCardsApiClient;
+import api.DeckOfCards;
 import com.google.gson.Gson;
 import model.Card;
 import model.ShuffledDeck;
@@ -11,7 +11,7 @@ import static service.PakTak.getCardByCode;
 
 public class Main {
     public static void main(String[] args) {
-        DeckOfCardsApiClient apiClient = DeckOfCardsApiClient.getInstance();
+        DeckOfCards apiClient = DeckOfCards.getInstance();
         CLIUI cliui = new CLIUI();
 
         // Initialize players and other necessary data outside of the loop

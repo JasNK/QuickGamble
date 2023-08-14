@@ -6,21 +6,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DeckOfCardsApiClient {
+public class DeckOfCards {
     private static final String API_BASE_URL = "https://deckofcardsapi.com/api/deck/";
-    private static DeckOfCardsApiClient instance;
-    private DeckOfCardsApiClient() {}
+    private static DeckOfCards instance;
+    private DeckOfCards() {}
 
-    public static DeckOfCardsApiClient getInstance() {
+    public static DeckOfCards getInstance() {
         if (instance == null) {
-            instance = new DeckOfCardsApiClient();
+            instance = new DeckOfCards();
         }
         return instance;
-    }
-
-    public String shuffleDeck(int deckCount) throws IOException {
-        String apiUrl = API_BASE_URL + "new/shuffle/?deck_count=" + deckCount;
-        return makeApiRequest(apiUrl);
     }
 
     public String drawCards(String deckId, int count) throws IOException {
