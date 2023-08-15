@@ -53,12 +53,27 @@ public class GameTest {
         assertEquals("User3", playerNames.get(2));
     }
 
-//    Test invalid usernames. 4 characters incluiding special characters worden geaccepteerd. Niet meer dan 20
+
+    @Test
+    public void testInvalidPlayerNames() {
+        String input = "Me\nMe12\n                                             \nUser123"; // Test user input for player names
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        CLIUI game = new CLIUI();
+        List<String> playerNames = game.getPlayerNames(2);
+
+        assertEquals(2, playerNames.size());
+        assertEquals("Me12", playerNames.get(0));
+        assertEquals("User123", playerNames.get(1));
+
+    }
+//    Test invalid usernames. 4 characters including special characters worden geaccepteerd. Niet meer dan 20
 
     @Test
     void testChooseCardCode() {
         // Test input
-        String input = "ABC\n1C\n"; // Choose 7 of Spades
+        String input = "ABC\n1C\n                                             \n7S\n"; // Choose 7 of Spades
         InputStream testInput = new ByteArrayInputStream(input.getBytes());
         System.setIn(testInput);
 
@@ -66,7 +81,7 @@ public class GameTest {
 
         String chosenCardCode = game.chooseCardCode();
 
-        assertEquals("1C", chosenCardCode);
+        assertEquals("7S", chosenCardCode);
     }
 //testChooseCardCode, testInvalidInputCardCode is hetzelfde, er moet 1 direct succees zijn en eentje waar de inputs worden getest, en eindigt met een succes
     @Test

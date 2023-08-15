@@ -79,7 +79,7 @@ public class CLIUI {
         System.out.print("Your choice: ");
         String input = scanner.nextLine().toUpperCase();
         while (!isValidCardCode(input)) {
-            System.out.println("Invalid input. Please enter a valid card code");
+            System.out.println(input+" is not a valid input. Please enter a valid card code");
             System.out.print("Your choice: ");
             input = scanner.nextLine().toUpperCase();
         }
