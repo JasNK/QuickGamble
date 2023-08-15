@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DOCTest {
+public class APITest {
     @Test
     void testDrawCards() throws IOException {
         DeckOfCards apiClient = DeckOfCards.getInstance();

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CLIUI {
+public class ClUi {
     private final Scanner scanner;
 
-    public CLIUI() {
+    public ClUi() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -22,10 +22,10 @@ public class CLIUI {
                 if (numberOfPlayers >= 2 && numberOfPlayers <= 6) {
                     break;
                 } else {
-                    System.out.println("Invalid input. Please enter a number between 2 and 6.");
+                    System.out.println(input + " is not a valid input. Please enter a number between 2 and 6.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.println(input + " is not a valid input. Please enter a valid number.");
             }
         }
         return numberOfPlayers;
@@ -41,7 +41,7 @@ public class CLIUI {
                     playerNames.add(playerName);
                     break;
                 } else {
-                    System.out.println("Invalid name. Please enter a non-empty name between 4 and 20 characters.");
+                    System.out.println(playerName + " is not a valid name. Please enter a non-empty name between 4 and 20 characters.");
                 }
             }
         }
@@ -80,7 +80,7 @@ public class CLIUI {
         System.out.print("Your choice: ");
         String input = scanner.nextLine().toUpperCase();
         while (!isValidCardCode(input)) {
-            System.out.println(input+" is not a valid input. Please enter a valid card code");
+            System.out.println(input + " is not a valid input. Please enter a valid card code");
             System.out.print("Your choice: ");
             input = scanner.nextLine().toUpperCase();
         }

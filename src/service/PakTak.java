@@ -9,12 +9,12 @@ public class PakTak {
     private final List<Player> players;
     private final Leaderboard leaderboard;
 
-    public PakTak(List<String> playerNames) {
+    public PakTak(List<String> playerNames, Leaderboard leaderboard) {
         this.players = new ArrayList<>();
         for (String name : playerNames) {
             players.add(new Player(name));
         }
-        this.leaderboard = new Leaderboard();
+        this.leaderboard = leaderboard;
     }
 
     public static Card getCardByCode(List<Card> cards, String code) {
@@ -40,16 +40,14 @@ public class PakTak {
         return players;
     }
 
-    public boolean startGame(List<Card> cards, String pickerName, Card chosenCard, CLIUI cliui) {
+    public boolean startGame(List<Card> cards, String pickerName, Card chosenCard, ClUi cliui) {
         int currentPlayerIndex = players.indexOf(players.stream().filter(player -> player.getName().equals(pickerName)).findFirst().orElse(null));
         boolean continuePlaying = true;
-
         for (Card card : cards) {
-
             Player currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.setDealtCards(card);
             if (chosenCard.getCode().equals(card.getCode())) {
-                System.out.println(currentPlayer.getName() + " wins!");
+                System.out.println("\n--------------------------\n" + currentPlayer.getName() + " wins!" + "\n--------------------------\n");
                 leaderboard.updateScore(currentPlayer.getName());
                 break;
             }
