@@ -26,7 +26,6 @@ public class DeckOfCards {
     private String makeApiRequest(String apiUrl) throws IOException {
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(5000);
         connection.setRequestProperty("Accept", "application/json");
@@ -36,12 +35,10 @@ public class DeckOfCards {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
-
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             in.close();
-
             return response.toString();
         } else {
             throw new IOException("API request failed with response code: " + responseCode);

@@ -1,27 +1,20 @@
 package test;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import service.CLIUI;
-import service.PakTak;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-//import src/Main;
 
 public class GameTest {
-
     @Test
     public void testValidPlayerNumbers() {
         String input = "4\n"; // Simulate user input of 4
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-
         CLIUI game = new CLIUI();
         int result = game.getNumberOfPlayers();
-
         assertEquals(4, result);
     }
 
@@ -30,13 +23,10 @@ public class GameTest {
         String input = " \nSD_\nr\n10\n1\n0\n4\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-
         CLIUI game = new CLIUI();
         int result = game.getNumberOfPlayers();
-
         assertEquals(4, result);
     }
-
 
     @Test
     public void testGetPlayerNames() {

@@ -2,18 +2,24 @@ package test;
 
 import api.DeckOfCards;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DOCTest {
     @Test
     void testDrawCards() throws IOException {
         DeckOfCards apiClient = DeckOfCards.getInstance();
-        String response = apiClient.drawCards("some_deck_id", 5);
+        String response = apiClient.drawCards("new", 5);
         assertNotNull(response);
     }
 
-    //enige input is new OF een existing card deck id(wat wij nooit hebben)
+    @Test
+    void testInvalidDrawCards() {
+        DeckOfCards apiClient = DeckOfCards.getInstance();
+        IOException exception = assertThrows(IOException.class, () -> {
+            apiClient.drawCards("invalid", 5);
+        });
+        String expectedErrorMessage = "API request failed with response code: 404";
+        assertEquals(expectedErrorMessage, exception.getMessage());
+    }
 }

@@ -6,7 +6,6 @@ import model.Card;
 import model.ShuffledDeck;
 import service.CLIUI;
 import service.PakTak;
-
 import static service.PakTak.getCardByCode;
 
 public class Main {
@@ -27,17 +26,8 @@ public class Main {
                 List<Card> totalCards = shuffledDeck.getCards();
 
                 String pickerName = cliui.choosePlayerToPickCard(playerNames);
-                String chosenCardCode;
-                Card chosenCard;
-                while (true) {
-                    chosenCardCode = cliui.chooseCardCode();
-                    chosenCard = getCardByCode(totalCards, chosenCardCode);
-                    if (chosenCard != null) {
-                        break;
-                    } else {
-                        System.out.println("Card with code " + chosenCardCode + " not found. Please try again.");
-                    }
-                }
+                String chosenCardCode = cliui.chooseCardCode();
+                Card chosenCard = getCardByCode(totalCards, chosenCardCode);
                 continuePlaying = pakTak.startGame(totalCards, pickerName, chosenCard, cliui);
             } catch (IOException e) {
                 e.printStackTrace();
