@@ -14,7 +14,7 @@ import java.util.List;
 public class GameTest {
 
     @Test
-    public void testValidInput() {
+    public void testValidPlayerNumbers() {
         String input = "4\n"; // Simulate user input of 4
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
@@ -26,15 +26,15 @@ public class GameTest {
     }
 
     @Test
-    public void testInvalidInputThenValidInput() {
-        String input = "r\n10\n"; // Simulating user input of 10 characters (invalid), then 3 (valid)
+    public void testInvalidThenValidPlayerNumbers() {
+        String input = " \nSD_\nr\n10\n1\n0\n4\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
         CLIUI game = new CLIUI();
         int result = game.getNumberOfPlayers();
 
-        assertEquals(10, result);
+        assertEquals(4, result);
     }
 
 
@@ -82,25 +82,6 @@ public class GameTest {
 
         assertEquals("2Z", chosenCardCode);
     }
-
-    @Test
-//    void testInvalidInputCardCodes() {
-//        // Test input with an invalid card code
-//        String input = "ABC\n2c\n"; // Invalid input
-//        InputStream testInput = new ByteArrayInputStream(input.getBytes());
-//        System.setIn(testInput);
-//
-//        List<String> testPlayers= new ArrayList<>();
-//        testPlayers.add("test1");
-//        testPlayers.add("test2");
-//
-//        PakTak game = new PakTak(testPlayers);
-//
-//        String chosenCardCode = game.getCardByCode();
-//
-//        assertEquals("2Z3", chosenCardCode);
-//    }
-
 }
 
 

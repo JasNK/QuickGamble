@@ -56,6 +56,17 @@ public class CLIUI {
         return playerNames.get(choice - 1);
     }
 
+    private boolean isValidCardCode(String input) {
+        if (input.length() != 2) {
+            return false;
+        }
+        char rank = input.charAt(0);
+        char suit = input.charAt(1);
+        boolean isValidRank = (rank >= '2' && rank <= '9') || rank == '0' || rank == 'J' || rank == 'Q' || rank == 'K' || rank == 'A';
+        boolean isValidSuit = suit == 'S' || suit == 'H' || suit == 'C' || suit == 'D';
+        return isValidRank && isValidSuit;
+    }
+
     public String chooseCardCode() {
         System.out.println("-----Enter the card code-----");
         System.out.println("Examples:");
@@ -67,14 +78,13 @@ public class CLIUI {
         System.out.println("KS for King of Spades");
         System.out.print("Your choice: ");
         String input = scanner.nextLine().toUpperCase();
-        while (input.length() != 2 || !input.matches("[A-Za-z0-9]+")) {
-            System.out.println("Invalid input. Please enter exactly 2 characters containing only letters or numbers.");
+        while (!isValidCardCode(input)) {
+            System.out.println("Invalid input. Please enter a valid card code");
             System.out.print("Your choice: ");
             input = scanner.nextLine().toUpperCase();
         }
         return input;
     }
-
 
     public int displayOptions() {
         System.out.println("Options:");
