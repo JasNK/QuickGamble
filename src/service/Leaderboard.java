@@ -16,7 +16,7 @@ public class Leaderboard {
     public void displayLeaderboard() {
         System.out.println("-----Leaderboard-----");
         for (HashMap.Entry<String, Integer> entry : scores.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue() + " wins" + "\n---------------------\n");
+            System.out.println(entry.getKey() + ": " + entry.getValue() + " wins");
         }
     }
 

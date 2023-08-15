@@ -55,6 +55,7 @@ public class PakTak {
         }
         printDealtCards();
         leaderboard.displayLeaderboard();
+        System.out.println("---------------------\n");
         int choice = cliui.displayOptions();
         switch (choice) {
             case 1 -> {
