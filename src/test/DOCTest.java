@@ -14,4 +14,6 @@ public class DOCTest {
         String response = apiClient.drawCards("some_deck_id", 5);
         assertNotNull(response);
     }
+
+    //enige input is new OF een existing card deck id(wat wij nooit hebben)
 }
