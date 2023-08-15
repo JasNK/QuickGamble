@@ -1,9 +1,6 @@
 package service;
 
-import model.Player;
-
 import java.util.HashMap;
-import java.util.List;
 
 public class Leaderboard {
     private final HashMap<String, Integer> scores;
